@@ -12,7 +12,7 @@ def searchDirectory(dirname,phrase):
 	for file in filenames:
 		#print(os.path.isfile.join("C:\\Users\\PC\\Document", file))
 		try:
-		    if file.endswith(".txt") or file.endswith(".doc"):
+		    if file.endswith(".txt"):
 		        fileurlinfo = os.path.join(dirname, file)
 		        print('Checking in file: ',fileurlinfo)
 		        with open(dirname+file, 'rt') as in_file:
@@ -26,6 +26,9 @@ def searchDirectory(dirname,phrase):
 
 				        	print('found in line: ...',line[startprint:m.end()+20])
 				        	print('---------------------')
+
+			elif:
+				if file.endswith(".doc") or file.endswith(".docx"):
 		except:
 			print ('Error while reading processing file:',file)
 	return;
