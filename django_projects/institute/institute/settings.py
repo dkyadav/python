@@ -23,9 +23,9 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = '1wl4^_pa=fy$fd2#^u%(^$_-p*x9#zxsagnwn+uc+6&(n%q4a5'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['127.0.0.1']
 
 
 # Application definition
@@ -98,7 +98,7 @@ DATABASES = {
 '''
 #https://dev.mysql.com/doc/connector-python/en/connector-python-django-backend.html
 #or tyring using pymysql from https://www.tutorialspoint.com/python3/python_database_access.htm
-'''
+
 DATABASES = {
     'default': {
         'NAME': 'test',
@@ -110,7 +110,7 @@ DATABASES = {
         },
     }
 }
-'''
+
 # Password validation
 # https://docs.djangoproject.com/en/2.0/ref/settings/#auth-password-validators
 
