@@ -1,0 +1,21 @@
+{% load static %}
+
+<h1>All courses html page</h1>
+<img src="{% static "images/de_logo.gif" %}">
+
+<br>
+
+<table>
+	<Tr>
+		<th>Name</th>
+		<th>Course</th>
+	</Tr>
+
+	{% for data in candidate %}
+		<Tr>
+			<td>{{data.name}}</td>
+			<td>{{data.course}}</td>
+		</Tr>
+	{% endfor %}
+
+</table>

@@ -8,7 +8,7 @@ print(numbers)
 
 print("*****")
 
-numbers = range(1,100)
+numbers = range(1,100)1
 for n in numbers:
 	print(n.endswith(','))
 
