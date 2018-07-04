@@ -1,0 +1,5 @@
+<ol>
+	{% for ci in abc %}
+		<li><a href="javascript:getcourse({{ci.id}})" id="cname_{{ci.cid}}">{{ci.name}}</a> on {{ci.insert}}</li>
+	{% endfor %}
+</ol>

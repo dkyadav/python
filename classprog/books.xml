@@ -1,0 +1,24 @@
+<!-- <bookstore><book category="cooking"><title lang="en">Everyday Italian</title><author>Giada De Laurentiis</author><year>2005</year><price>30.00</price></book><book category="children"><title lang="en">Harry Potter</title><author>J K. Rowling</author><year>2005</year><price>29.99</price></book><book category="web"><title lang="en">XQuery Kick Start</title><author>James McGovern</author><author>Per Bothner</author><author>Kurt Cagle</author><author>James Linn</author><author>Vaidyanathan Nagarajan</author><year>2003</year><price>49.99</price></book><book category="web" cover="paperback"><title lang="en">Learning XML</title><author>Erik T. Ray</author><year>2003</year><price>39.95</price></book></bookstore> -->
+
+<?xml version="1.0"?>  
+<Catalog>  
+   <Book id="bk101">  
+      <Author>Garghentini, Davide</Author>  
+      <Title>XML Developer's Guide</Title>  
+      <Genre>Computer</Genre>  
+      <Price>44.95</Price>  
+      <PublishDate>2000-10-01</PublishDate>  
+      <Description>An in-depth look at creating applications   
+      with XML.</Description>  
+   </Book>  
+   <Book id="bk102">  
+      <Author>Garcia, Debra</Author>  
+      <Title>Midnight Rain</Title>  
+      <Genre>Fantasy</Genre>  
+      <Price>5.95</Price>  
+      <PublishDate>2000-12-16</PublishDate>  
+      <Description>A former architect battles corporate zombies,   
+      an evil sorceress, and her own childhood to become queen   
+      of the world.</Description>  
+   </Book>  
+</Catalog>  

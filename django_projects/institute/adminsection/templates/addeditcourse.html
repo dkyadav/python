@@ -1,0 +1,129 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<h1>Courses Admin Section</h1>
+
+<hr>
+	<h3><small class="text-warning">Add/Edit Course</small></h3>
+	<div class="alert alert-danger col-sm-6 hide">
+	  <strong>Course Failed!</strong> Please check the error and try again
+	</div>
+	<div class="alert alert-success hide">
+	  <strong>Course Successfull Added!</strong>
+	</div>
+	<div style="clear: both"></div>
+	<form  method="POST" name="addeditform" id="addeditform">
+	  <fieldset>
+	    {% csrf_token %}
+	    <input type="hidden" id="courseid" name="courseid" value="0">
+	    <div class="control-group">
+	      <!-- Username -->
+	      <label class="control-label col-sm-2"  for="cname">Course Name</label>
+	      <div class="controls col-sm-10">
+	        <input type="text" id="cname" name="cname" placeholder="" class="input-xlarge col-sm-4">
+	        <br><br>
+	      </div>
+	    </div>
+	 	
+	    <div class="control-group">
+	      <!-- Password-->
+	      <label class="control-label col-sm-2" for="cdesc">Course Description</label>
+	      <div class="controls col-sm-10">
+	        <input type="text" id="cdesc" name="cdesc" placeholder="" class="input-xlarge col-sm-8">
+	        <br><br>
+	      </div>
+	    </div>
+
+	    <div class="control-group">
+	      <!-- Button -->
+	      <div class="controls col-sm-12">
+	        <button class="btn btn-success col-sm-2 col-sm-offset-2" id="btn-addedit">Add</button>
+	      </div>
+	    </div>
+	  </fieldset>
+	</form>
+
+	<hr>
+
+	<h3><small class="text-warning">List of Courses</small></h3>
+	<!-- <ol>
+		{% for ci in abc %}
+			<li><a href="javascript:getcourse({{ci.id}})" id="cname_{{ci.cid}}">{{ci.name}}</a> on {{ci.insert}}</li>
+		{% endfor %}
+	</ol> -->
+
+	<div id="sectionlist">
+
+	</div>
+
+{% endblock content %}
+
+{% block footer_javascript_page %}
+	<script type="text/javascript">
+
+		function reloadList(){
+			$( "#sectionlist" ).load( "/adminsection/courseslist/");	
+		}
+		
+		reloadList();
+
+		$("#btn-addedit").click(function(e){
+			e.preventDefault()
+		    var fdata = $("#addeditform").serialize();
+		    console.log(fdata);
+		    $.ajax({
+			    url: '/adminsection/addedit_action/',
+			    type: 'POST',
+			    data: fdata,
+			    cache: true,
+			    success: function (data) {
+			    	if(data.cid > 0){
+			    		$('.alert-success').html('Course Successfull Added!');
+			    		$('.alert-success').removeClass('hide');
+			    		$('#courseid').val(0);
+			    		$('#addeditform')[0].reset();
+			    		$('#btn-addedit').html('Add');
+			    		reloadList();
+			    	}
+	                else
+	                	$('.alert-danger').removeClass('hide');
+	            }
+	            //return false;
+			});
+
+		});
+
+		function getcourse(id)
+		{
+			var fdata = $("#addeditform").serialize();
+		    console.log(fdata);
+		    $.ajax({
+			    url: '/api/get_all_courses/'+id+'/',
+			    type: 'POST',
+			    data: fdata,
+			    cache: true,
+			    success: function (data) {
+			    	console.log(data)
+			    	if(data.result > 0){
+			    		//$('.alert-success').removeClass('hide');
+			    		$('#addeditform')[0].reset();
+			    		$('#courseid').val(id);
+			    		$('#cname').val(data.name);
+			    		$('#cdesc').val(data.description);
+			    		$('#btn-addedit').html('Edit');
+			    		$('.alert-success').html('Course Successfull Updated!');
+					}
+	                else
+	                	$('.alert-danger').removeClass('hide');
+	                
+	                
+	            }
+
+	            //return false;
+			});
+
+		}
+
+	</script>
+{% endblock footer_javascript_page %}

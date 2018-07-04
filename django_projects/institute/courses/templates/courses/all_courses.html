@@ -1,4 +1,8 @@
+{% extends 'base.html' %}
 {% load static %}
+
+
+{% block content %}
 
 <h1>All courses html page</h1>
 <img src="{% static "images/de_logo.gif" %}">
@@ -19,3 +23,5 @@
 	{% endfor %}
 
 </table>
+
+{% endblock content%}

@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+
+{% block content %}
+	
+	<h1>Institute Registered Users</h1>
+	<hr>
+	{% for foo in abc %}
+		<div class="well">
+			<div class="row">
+			    <div class="col-sm-4">
+			    	<span class="label label-default">USRID</span> {{ foo.id }}
+			    </div>
+			    <div class="col-sm-4">
+			    	<span class="label label-default">NAME</span> {{ foo.name }}
+			    </div>
+			    <div class="col-sm-4">
+			    	<span class="label label-default">EMAIL</span> {{ foo.email }}
+			    </div>
+			</div>
+	    </div>
+	{% endfor %}
+	
+
+{% endblock content %}

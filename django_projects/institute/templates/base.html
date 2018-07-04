@@ -1,0 +1,164 @@
+{% load static %}
+{# HTML5 declaration #}
+<!DOCTYPE html>
+<html>
+    {# Make modifiable head elements #}
+    <head>
+        <title>
+        	{% block title %}
+        		Home 
+        	{% endblock title %} 
+        	| Demo Institute
+        </title>
+        
+        {% block head_favicon %}
+            <link rel="icon" type="image/png" href="{% static "images/fav.ico" %}">
+        {% endblock head_favicon %}
+
+        {% block head_meta %}
+            
+            {% block head_meta_charset %}
+                <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+            {% endblock head_meta_charset %}
+
+            {% block head_meta_contentlanguage %}
+                <meta http-equiv="Content-Language" value="en-US" />
+            {% endblock head_meta_contentlanguage %}
+            
+            {% block head_meta_viewport %}
+                <meta name="viewport" content="width=device-width, initial-scale=1.0">
+            {% endblock head_meta_viewport %}
+
+        {% endblock head_meta %}
+
+        {% block head_css %}
+
+            {% block head_css_site %}
+                <link href="{% static "css/bootstrap3.3.7.min.css" %}"
+                      rel="stylesheet" media="screen">
+                <link href="{% static "css/app.css" %}"
+                      rel="stylesheet" media="screen">
+
+            {% endblock head_css_site %}
+
+            {% block head_css_section %}
+            {% endblock head_css_section %}
+            
+            {% block head_css_page %}
+            {% endblock head_css_page %}
+
+        {% endblock head_css %}
+
+        <!-- Latest compiled and minified CSS 
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+		-->
+		
+
+    </head>
+
+	<body>
+	    {# Navigation Menu #}
+	    <header>
+	        <div class="navbar navbar-default navbar-static-top 
+	        {% block nav-style %}{% endblock %}">
+	            <div class="container p-none">
+	                <div class="navbar-header">
+	                    <button type="button" class="navbar-toggle"
+	                            data-toggle="collapse"
+	                            data-target=".navbar-collapse">
+	                        <span class="icon-bar"></span>
+	                        <span class="icon-bar"></span>
+	                        <span class="icon-bar"></span>
+	                    </button>
+	                    <a class="navbar-brand" href="/">Demo Institute</a>
+	                </div>
+	                <div class="collapse navbar-collapse">
+	                	<ul class="nav navbar-nav">
+					    	<!-- <li class="active"><a href="#">Home</a></li> -->
+					    	<li {% if request.get_full_path == "/courses/list/" %}class="active"{% endif %}>
+					    		<a href="/courses/list/"><span class="glyphicon glyphicon-book"></span> Courses</a>
+					    	</li>
+					    	<li {% url '/users/list/' as the_url %}
+								{% if request.get_full_path == '/users/list/' %}class="active"{% endif %}>
+					    		<a href="/users/list/"><span class="glyphicon glyphicon-list"></span> Users</a>
+					    	</li>
+					    	<li {% if request.get_full_path == "/contact/" %}class="active"{% endif %}>
+					    		<a href="#"><span class="glyphicon glyphicon-envelope"></span> Contact us</a>
+					    	</li>
+					    </ul>
+
+	                    <ul class="nav navbar-nav navbar-right">
+	                    	{% if request.session.id %}
+	                    		<li><a href="/users/logout/">{{request.session.name}} Logout</a></li>
+	                            <!-- <li><a href="" class="p-r-none">Accounts</a></li> -->
+	                            <li class="dropdown">
+							    	<a class="dropdown-toggle" data-toggle="dropdown" href="#">Admin Control
+							    	<span class="caret"></span></a>
+							    	<ul class="dropdown-menu">
+							    		<li><a href="/adminsection/courses/">Add/Edit Courses</a></li>
+							    		<li><a href="/admin/register/iusers/">Add/Edit Users</a></li>
+							    		<li><a href="#">Action 3</a></li>
+							    	</ul>
+							    </li>
+	                    	{% else %}
+	                    		<li><a href="/users/login/"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
+	                        	<li><a href="/public/register/" class="p-r-none"><span class="glyphicon glyphicon-user"></span> Sign Up</a></li>
+	                    	{% endif %}
+	                    	<!-- {% if user.is_authenticated %}
+	                            <li><a href="">Logout</a></li>
+	                            <li><a href=""
+	                                   class="p-r-none">Accounts</a></li>
+	                        {% else %}
+	                            <li><a href="/users/login/"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
+	                        	<li><a href="/public/register/" class="p-r-none"><span class="glyphicon glyphicon-user"></span> Sign Up</a></li>
+	                        {% endif %} -->
+	                    </ul>
+	                </div>
+	            </div>
+	        </div>
+	    </header>
+
+	    {# The Document Body #}
+	    <div id="site-wrapper">
+	    	<div class="container maincontent">
+				{% block content %}
+		            if you see this, something is wrong!
+		        {% endblock content %}
+	    	</div>
+
+	    </div>
+	    {# The Footer #}
+	    <div class="footer">
+	        <div class="container">
+	            <p>2018 @ Copyright Demo Institute Page</p>
+	        </div>
+	    </div>
+	</body>
+
+
+	{# Set of blocks that can be used to display JavaScript files #}
+    {% block footer_javascript %}
+        {% block footer_javascript_site %}
+            <!-- <script src="{{ STATIC_URL }}js/jquery.min.js"></script>
+            <script src="{{ STATIC_URL }}js/bootstrap.min.js"></script>
+            <script src="{{ STATIC_URL }}js/app.js"></script> -->
+            
+            <!-- jQuery library -->
+			<!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script> -->
+
+			<!-- Latest compiled JavaScript -->
+			<!-- <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script> -->
+			<script src="{% static "js/jquery.min.3.3.1.js" %}"></script>
+			<script src="{% static "js/bootstrap.min.js" %}"></script>
+            
+
+        {% endblock footer_javascript_site %}
+
+        {% block footer_javascript_section %}
+        {% endblock footer_javascript_section %}
+
+        {% block footer_javascript_page %}
+        {% endblock footer_javascript_page %}
+
+    {% endblock footer_javascript %}
+</html>

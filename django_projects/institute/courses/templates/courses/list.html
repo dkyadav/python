@@ -1,0 +1,109 @@
+{% extends 'base.html' %}
+
+{% block head_css_page %}
+	<style type="text/css">
+		.searchResult{
+			background:yellow;
+			font-weight: bold; 	
+		}
+		
+	</style>
+{% endblock head_css_page %}
+
+{% block content %}
+	
+	<h1>Institute Courses</h1>
+	<hr>
+
+	<div class="row">
+		<form id="searchCourse" name="searchCourse" class="col-sm-12">
+			{% csrf_token %}
+			<div class="input-group">
+		    	<input type="text" id="searchText" name="searchText" class="form-control" placeholder="Begin typing to search ... ">
+		    	<div class="input-group-btn">
+		      		<button class="btn btn-default" id="searchBtn">
+		        	<i class="glyphicon glyphicon-search"></i>
+		      	</button>
+		    	</div>
+		  	</div>
+		</form> 
+	</div>
+	<br><br>
+	<div class="row" id="courseContent">
+		{% for data in abc %}
+			<div class="col-sm-4">
+				<div class="panel panel-default">
+					<div class="panel-heading">{{ data.name }}</div>
+					<div class="panel-body">{{ data.description }}</div>
+				</div>
+			</div>
+		{% endfor %}
+	</div>
+{% endblock content%}	
+
+{% block footer_javascript_page %}
+	<script type="text/javascript">
+
+		function escapeRegExp(string){
+    		return string.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+		}
+
+		function replaceAll(str, term, replacement) {
+		  return str.replace(new RegExp(escapeRegExp(term), 'gi'), replacement);
+		}
+		
+		$('#searchText').on('keyup',performSearch);
+		
+		$("#searchBtn").on('click', function(e){
+			e.preventDefault(); 
+			performSearch()
+		});
+
+
+		function performSearch()
+		{
+			var fdata = $("#searchCourse").serialize();
+		    var st = $('#searchText').val();
+		    var posturl = '/api/get_all_courses/search/'+st+'/';
+		    if(st == '')
+		    	posturl = '/api/get_all_courses/';
+		    
+		    htmlcontent = '';
+		    
+		    $.ajax({
+			    url: posturl,
+			    type: 'POST',
+			    data: fdata,
+			    cache: true,
+			    success: function (data) {
+			    	if($.isEmptyObject(data)){
+			    		$('#courseContent').html('<h1>No Search Result Found</h1>')
+			    	}
+			    	else
+			    	{
+			    		$.each(data, function(i, item) {
+				    		var heading = data[i].name;
+					    	var desc = data[i].description;
+					    	
+					    	heading = replaceAll(heading, st, '<span class="searchResult">'+st+'</span>');
+					    	desc = replaceAll(desc, st, '<span class="searchResult">'+st+'</span>');
+
+					    	htmlcontent = htmlcontent + '<div class="col-sm-4">';
+								htmlcontent = htmlcontent + '<div class="panel panel-default">';
+									htmlcontent = htmlcontent + '<div class="panel-heading">'+heading+'</div>';
+									htmlcontent = htmlcontent + '<div class="panel-body">'+desc+'</div>';
+								htmlcontent = htmlcontent + '</div>';
+							htmlcontent = htmlcontent + '</div>';
+
+							$('#courseContent').html(htmlcontent);
+
+						})
+			    	}
+			    }
+			    //return false;
+			});
+		}
+			
+
+	</script>
+{% endblock footer_javascript_page %}

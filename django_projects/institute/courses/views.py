@@ -1,9 +1,13 @@
 from django.shortcuts import render
 from django.http import HttpResponse
 from django.template import Template, Context
+from courses.models import Course
 
 import datetime
 import mysql.connector
+
+
+
 
 cnx = mysql.connector.connect(user='root', database='test', password='deepak')
 cursor = cnx.cursor()
@@ -22,6 +26,16 @@ cnx.close()
 
 # Create your views here.
 
+def all_courses_list(request):
+
+    query_set = Course.objects.values().order_by('-id')
+
+    return render(
+            request,
+            'courses/list.html',
+            {'abc':query_set}
+        )
+
 def all_courses(request):
 	# Render the HTML template index.html with the data in the context variable
     '''
@@ -31,6 +45,9 @@ def all_courses(request):
         context={'test':'hello','test2':'hello world'},
     )
     '''
+
+    
+
     all_candidates = []
     all_candidates.append({'name':'Deepak','course':'Python'})
     all_candidates.append({'name':'Ashish','course':'Java'})

@@ -3,6 +3,10 @@
 from xml.dom.minidom import parse
 import xml.dom.minidom
 
+import time
+start_time = time.time()
+
+
 # Open XML document using minidom parser
 DOMTree = xml.dom.minidom.parse("moviesbig.xml")
 collection = DOMTree.documentElement
@@ -26,3 +30,5 @@ for movie in movies:
    print ("Rating: %s" % rating.childNodes[0].data)
    description = movie.getElementsByTagName('description')[0]
    print ("Description: %s" % description.childNodes[0].data)
+
+   print("--- %s Total seconds ---" % (time.time() - start_time))

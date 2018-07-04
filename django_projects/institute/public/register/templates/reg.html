@@ -1,0 +1,107 @@
+{% extends 'base.html' %}
+
+{% block content %}
+	
+	<h1>Institute Registration Page</h1>
+	<hr>
+	<form class="form-horizontal" action='' method="POST" name="regform" id="regform">
+	  <fieldset>
+	    {% csrf_token %}
+	    <div class="alert alert-success hide">
+		  <strong>Successfull Registered!</strong> You should <a href="/users/login" class="alert-link">redirected to Login page</a>.
+		</div>
+	    <div class="control-group">
+	      <!-- Name -->
+	      <label class="control-label"  for="name">Name</label>
+	      <div class="controls">
+	        <input type="text" id="name" name="name" placeholder="" class="input-xlarge">
+	        <p class="help-block">Name can contain any letters</p>
+	      </div>
+	    </div>
+	 
+	    <div class="control-group">
+	      <!-- Username -->
+	      <label class="control-label"  for="username">Username</label>
+	      <div class="controls">
+	        <input type="text" id="username" name="username" placeholder="" class="input-xlarge">
+	        <p class="help-block">Username can contain any letters or numbers, without spaces</p>
+	      </div>
+	    </div>
+	 
+	    <div class="control-group">
+	      <!-- E-mail -->
+	      <label class="control-label" for="email">E-mail</label>
+	      <div class="controls">
+	        <input type="text" id="email" name="email" placeholder="" class="input-xlarge">
+	        <p class="help-block">Please provide your E-mail</p>
+	      </div>
+	    </div>
+	 
+	    <div class="control-group">
+	      <!-- Password-->
+	      <label class="control-label" for="password">Password</label>
+	      <div class="controls">
+	        <input type="password" id="password" name="password" placeholder="" class="input-xlarge">
+	        <p class="help-block">Password should be at least 4 characters</p>
+	      </div>
+	    </div>
+	 
+	    <div class="control-group">
+	      <!-- Password -->
+	      <label class="control-label"  for="password_confirm">Password (Confirm)</label>
+	      <div class="controls">
+	        <input type="password" id="password_confirm" name="password_confirm" placeholder="" class="input-xlarge">
+	        <p class="help-block">Please confirm password</p>
+	      </div>
+	    </div>
+	 
+	    <div class="control-group">
+	      <!-- Button -->
+	      <div class="controls">
+	        <button class="btn btn-success" id="reg-btn">Register</button>
+	      </div>
+	    </div>
+
+	  </fieldset>
+	</form>
+
+{% endblock content %}
+
+
+{% block footer_javascript_page %}
+	<script type="text/javascript">
+		var csrftoken1 = $("[name=csrfmiddlewaretoken]").val();
+		//console.log(csrftoken1);
+
+		$("#reg-btn").click(function(e){
+
+			e.preventDefault()
+		    var fdata = $("#regform").serialize();
+		    console.log(fdata);
+
+		    $.ajax({
+			    url: '/public/register/',
+			    type: 'POST',
+			    headers:{
+			        "X-CSRFToken": csrftoken1
+			    },
+			    data: fdata,
+			    cache: true,
+			    success: function (data) {
+	                //console.log(data);
+	                //alert(data);
+	                $('.alert-success').removeClass('hide');
+	                setTimeout(function(){ 
+	                	location.href = '/users/login';
+	                }, 3000);
+	                
+	            }
+
+	            //return false;
+			});
+
+		});
+
+	</script>
+{% endblock footer_javascript_page %}
+

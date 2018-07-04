@@ -1,0 +1,111 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<!-- 
+<style type="text/css">
+	@media only screen and (min-width : 1300px) {
+
+	    .container { width: 800px; } 
+
+	}
+</style> 
+-->
+
+
+	<h1>Login Form</h1>
+	<hr>
+	<div class="alert alert-danger col-sm-6 hide">
+	  <strong>Login Failed!</strong> Please check the username/password and try again</a>.<br>
+	</div>
+	<div style="clear: both"></div>
+	<form class="form-horizontal" action='/users/login/' method="POST" name="loginform" id="loginform">
+	  <fieldset>
+	    {% csrf_token %}
+	    <div class="control-group">
+	      <!-- Username -->
+	      <label class="control-label"  for="username">Username</label>
+	      <div class="controls">
+	        <input type="text" id="username" name="username" placeholder="" class="input-xlarge">
+	        <p class="help-block">Username can contain any letters or numbers, without spaces</p>
+	      </div>
+	    </div>
+	 
+	    <div class="control-group">
+	      <!-- Password-->
+	      <label class="control-label" for="password">Password</label>
+	      <div class="controls">
+	        <input type="password" id="password" name="password" placeholder="" class="input-xlarge">
+	        <p class="help-block">Password should be at least 4 characters</p>
+	      </div>
+	    </div>
+
+	    <div class="control-group">
+	      <!-- Button -->
+	      <div class="controls">
+	        <button class="btn btn-success" id="btn-login">Login</button>
+	      </div>
+	    </div>
+	  </fieldset>
+
+	</form>
+
+{% endblock content %}
+
+{% block footer_javascript_page %}
+<script type="text/javascript">
+	var csrftoken1 = $("[name=csrfmiddlewaretoken]").val();
+	console.log(csrftoken1);
+
+	$("#btn-login").click(function(e){
+
+		e.preventDefault()
+	    var fdata = $("#loginform").serialize();
+	    // $.post("/users/login/", fdata, function(result){
+	    //     console.log(result);
+	    // });
+	    console.log(fdata);
+
+	    $.ajax({
+		    url: '/users/login/',
+		    type: 'POST',
+		    headers:{
+		        "X-CSRFToken": csrftoken1
+		    },
+		    data: fdata,
+		    cache: true,
+		    success: function (data) {
+                console.log(data);
+                //alert(data);
+                if(data.uid > 0)
+                	location.href="/"
+                else
+                	$('.alert-danger').removeClass('hide');
+
+            }
+
+            //return false;
+		});
+
+	});
+
+	function getCookie(name) {
+	    var cookieValue = null;
+	    if (document.cookie && document.cookie !== '') {
+	        var cookies = document.cookie.split(';');
+	        for (var i = 0; i < cookies.length; i++) {
+	            var cookie = jQuery.trim(cookies[i]);
+	            // Does this cookie string begin with the name we want?
+	            if (cookie.substring(0, name.length + 1) === (name + '=')) {
+	                cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+	                break;
+	            }
+	        }
+	    }
+	    return cookieValue;
+	}
+	var csrftoken = getCookie('csrftoken');
+	console.log(csrftoken);
+
+</script>
+
+{% endblock footer_javascript_page %}

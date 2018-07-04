@@ -23,9 +23,12 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = '1wl4^_pa=fy$fd2#^u%(^$_-p*x9#zxsagnwn+uc+6&(n%q4a5'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+#DEBUG = False
+DEBUG = True
 
-ALLOWED_HOSTS = ['127.0.0.1']
+#ALLOWED_HOSTS = ['127.0.0.1']
+ALLOWED_HOSTS = []
+
 
 
 # Application definition
@@ -40,6 +43,11 @@ INSTALLED_APPS = [
     'courses',
     'events',
     'students',
+    'public.register',
+    'users',
+    'public',
+    'adminsection',
+
 ]
 
 MIDDLEWARE = [
@@ -57,7 +65,8 @@ ROOT_URLCONF = 'institute.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [os.path.join(BASE_DIR, 'templates'),'./templates'],
+        #'DIRS': [],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
