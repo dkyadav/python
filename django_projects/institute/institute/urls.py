@@ -22,7 +22,23 @@ urlpatterns = [
     path('courses/',include('courses.urls')),
     path('students/',include('students.urls')),
     path('events/',include('events.urls')),
-    path('public/register/',include('public.register.urls')),
+    path('public/',include('public.urls')),
+    path('users/',include('users.urls')),
+    path('api/',include('api.urls')),
+    path('', include('public.urls')),
+    path('accounts/', include('django.contrib.auth.urls')),
+    path('adminsection/', include('adminsection.urls'))
+]
+
+
+'''
+urlpatterns = [
+    path('admin/', admin.site.urls),
+    path('courses/',include('courses.urls')),
+    path('students/',include('students.urls')),
+    path('events/',include('events.urls')),
+    #path('public/register/',include('public.register.urls')),
+    path('public/',include('public.urls')),
     #path('public/',include('public.urls')),
     path('users/',include('users.urls')),
     path('api/',include('api.urls')),
@@ -30,3 +46,4 @@ urlpatterns = [
     path('accounts/', include('django.contrib.auth.urls')),
     path('adminsection/', include('adminsection.urls'))
 ]
+'''

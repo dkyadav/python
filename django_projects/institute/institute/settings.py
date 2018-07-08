@@ -44,6 +44,8 @@ INSTALLED_APPS = [
     'events',
     'students',
     'public.register',
+    #'public',
+    #'register',
     'users',
     'public',
     'adminsection',

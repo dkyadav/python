@@ -6,7 +6,8 @@ import json
 
 # Create your views here.
 
-def register_view(request):
+#This is not getting used now, as the register_veiw is in maon public views page now
+def register_viewNU(request):
 
 	if request.POST:
 		name = request.POST.get('name')
